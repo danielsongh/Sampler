@@ -14,7 +14,9 @@
 		5C079CF61CB4A6C60015B132 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C079CF41CB4A6C60015B132 /* LaunchScreen.storyboard */; };
 		5C079D011CB4A6C60015B132 /* SamplerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C079D001CB4A6C60015B132 /* SamplerTests.swift */; };
 		5C079D0C1CB4A6C60015B132 /* SamplerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C079D0B1CB4A6C60015B132 /* SamplerUITests.swift */; };
-		5C079D1A1CB4BC250015B132 /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C079D191CB4BC250015B132 /* FileListViewController.swift */; };
+		5CACC2571D57F27700DCF255 /* FileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC2561D57F27700DCF255 /* FileList.swift */; };
+		5CACC2591D57F89800DCF255 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC2581D57F89800DCF255 /* SampleData.swift */; };
+		5CACC25D1D57FC0300DCF255 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC25C1D57FC0300DCF255 /* FileListTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +50,9 @@
 		5C079D071CB4A6C60015B132 /* SamplerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SamplerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C079D0B1CB4A6C60015B132 /* SamplerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplerUITests.swift; sourceTree = "<group>"; };
 		5C079D0D1CB4A6C60015B132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5C079D191CB4BC250015B132 /* FileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
+		5CACC2561D57F27700DCF255 /* FileList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileList.swift; sourceTree = "<group>"; };
+		5CACC2581D57F89800DCF255 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		5CACC25C1D57FC0300DCF255 /* FileListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileListTableViewController.swift; path = ../FileListTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +103,10 @@
 		5C079CEA1CB4A6C60015B132 /* Sampler */ = {
 			isa = PBXGroup;
 			children = (
+				5CACC25C1D57FC0300DCF255 /* FileListTableViewController.swift */,
 				5C079CEB1CB4A6C60015B132 /* AppDelegate.swift */,
 				5C079CED1CB4A6C60015B132 /* RecordViewController.swift */,
-				5C079D191CB4BC250015B132 /* FileListViewController.swift */,
+				5CACC2551D57F13F00DCF255 /* Model */,
 				5C079CEF1CB4A6C60015B132 /* Main.storyboard */,
 				5C079CF21CB4A6C60015B132 /* Assets.xcassets */,
 				5C079CF41CB4A6C60015B132 /* LaunchScreen.storyboard */,
@@ -126,6 +131,15 @@
 				5C079D0D1CB4A6C60015B132 /* Info.plist */,
 			);
 			path = SamplerUITests;
+			sourceTree = "<group>";
+		};
+		5CACC2551D57F13F00DCF255 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5CACC2561D57F27700DCF255 /* FileList.swift */,
+				5CACC2581D57F89800DCF255 /* SampleData.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +273,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CACC2571D57F27700DCF255 /* FileList.swift in Sources */,
+				5CACC25D1D57FC0300DCF255 /* FileListTableViewController.swift in Sources */,
 				5C079CEE1CB4A6C60015B132 /* RecordViewController.swift in Sources */,
 				5C079CEC1CB4A6C60015B132 /* AppDelegate.swift in Sources */,
-				5C079D1A1CB4BC250015B132 /* FileListViewController.swift in Sources */,
+				5CACC2591D57F89800DCF255 /* SampleData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +502,7 @@
 				5C079D121CB4A6C60015B132 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5C079D131CB4A6C60015B132 /* Build configuration list for PBXNativeTarget "SamplerTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +511,7 @@
 				5C079D151CB4A6C60015B132 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5C079D161CB4A6C60015B132 /* Build configuration list for PBXNativeTarget "SamplerUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +520,7 @@
 				5C079D181CB4A6C60015B132 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
