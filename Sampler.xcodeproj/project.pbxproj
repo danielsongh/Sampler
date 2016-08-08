@@ -16,7 +16,7 @@
 		5C079D0C1CB4A6C60015B132 /* SamplerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C079D0B1CB4A6C60015B132 /* SamplerUITests.swift */; };
 		5CACC2571D57F27700DCF255 /* FileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC2561D57F27700DCF255 /* FileList.swift */; };
 		5CACC2591D57F89800DCF255 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC2581D57F89800DCF255 /* SampleData.swift */; };
-		5CACC25D1D57FC0300DCF255 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC25C1D57FC0300DCF255 /* FileListTableViewController.swift */; };
+		5CACC25F1D5804DA00DCF255 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC25E1D5804DA00DCF255 /* FileListTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		5C079D0D1CB4A6C60015B132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CACC2561D57F27700DCF255 /* FileList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileList.swift; sourceTree = "<group>"; };
 		5CACC2581D57F89800DCF255 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
-		5CACC25C1D57FC0300DCF255 /* FileListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileListTableViewController.swift; path = ../FileListTableViewController.swift; sourceTree = "<group>"; };
+		5CACC25E1D5804DA00DCF255 /* FileListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 		5C079CEA1CB4A6C60015B132 /* Sampler */ = {
 			isa = PBXGroup;
 			children = (
-				5CACC25C1D57FC0300DCF255 /* FileListTableViewController.swift */,
+				5CACC25E1D5804DA00DCF255 /* FileListTableViewController.swift */,
 				5C079CEB1CB4A6C60015B132 /* AppDelegate.swift */,
 				5C079CED1CB4A6C60015B132 /* RecordViewController.swift */,
 				5CACC2551D57F13F00DCF255 /* Model */,
@@ -274,8 +274,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CACC2571D57F27700DCF255 /* FileList.swift in Sources */,
-				5CACC25D1D57FC0300DCF255 /* FileListTableViewController.swift in Sources */,
 				5C079CEE1CB4A6C60015B132 /* RecordViewController.swift in Sources */,
+				5CACC25F1D5804DA00DCF255 /* FileListTableViewController.swift in Sources */,
 				5C079CEC1CB4A6C60015B132 /* AppDelegate.swift in Sources */,
 				5CACC2591D57F89800DCF255 /* SampleData.swift in Sources */,
 			);
