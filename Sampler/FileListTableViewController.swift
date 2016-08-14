@@ -11,11 +11,13 @@ import UIKit
 class FileListTableViewController: UITableViewController {
 
     
-    var samples:[Sample] = fileData
-    
+    var recordings:[NSURL]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("table view did load")
+        tableView.reloadData()
+        listRecordings()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -38,7 +40,7 @@ class FileListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return samples.count
+        return 1
     }
 
     
@@ -46,12 +48,30 @@ class FileListTableViewController: UITableViewController {
         
         // Configure the cell...
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("FileCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("FileCell")!
         
-        let sample = samples[indexPath.row] as Sample
-        cell.textLabel?.text = sample.name
-        //cell.TextLabel?.text = sample.date
+        cell.textLabel!.text = recordings[indexPath.row].lastPathComponent
+        print("THIS IS FROM TABLEVIEW")
+        print(recordings[indexPath.row].lastPathComponent)
         return cell
+    }
+    
+    func listRecordings() {
+        
+        let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        do {
+            let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsDirectory, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+            self.recordings = urls.filter( { (name: NSURL) -> Bool in
+                print("THIS IS FROM LISTRECORDINGS")
+                print(name)
+                return name.lastPathComponent!.hasSuffix("caf")
+            })
+            
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        } catch {
+            print("something went wrong")
+        } 
     }
     
 

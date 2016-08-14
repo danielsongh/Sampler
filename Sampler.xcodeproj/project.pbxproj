@@ -14,6 +14,8 @@
 		5C079CF61CB4A6C60015B132 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C079CF41CB4A6C60015B132 /* LaunchScreen.storyboard */; };
 		5C079D011CB4A6C60015B132 /* SamplerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C079D001CB4A6C60015B132 /* SamplerTests.swift */; };
 		5C079D0C1CB4A6C60015B132 /* SamplerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C079D0B1CB4A6C60015B132 /* SamplerUITests.swift */; };
+		5C80D4CF1D6124AC00988FC9 /* AudioState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C80D4CE1D6124AC00988FC9 /* AudioState.swift */; };
+		5C80D4D11D612D9100988FC9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C80D4D01D612D9100988FC9 /* PlayerViewController.swift */; };
 		5CACC2571D57F27700DCF255 /* FileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC2561D57F27700DCF255 /* FileList.swift */; };
 		5CACC2591D57F89800DCF255 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC2581D57F89800DCF255 /* SampleData.swift */; };
 		5CACC25F1D5804DA00DCF255 /* FileListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACC25E1D5804DA00DCF255 /* FileListTableViewController.swift */; };
@@ -50,6 +52,8 @@
 		5C079D071CB4A6C60015B132 /* SamplerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SamplerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C079D0B1CB4A6C60015B132 /* SamplerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplerUITests.swift; sourceTree = "<group>"; };
 		5C079D0D1CB4A6C60015B132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C80D4CE1D6124AC00988FC9 /* AudioState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioState.swift; sourceTree = "<group>"; };
+		5C80D4D01D612D9100988FC9 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		5CACC2561D57F27700DCF255 /* FileList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileList.swift; sourceTree = "<group>"; };
 		5CACC2581D57F89800DCF255 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		5CACC25E1D5804DA00DCF255 /* FileListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListTableViewController.swift; sourceTree = "<group>"; };
@@ -103,9 +107,8 @@
 		5C079CEA1CB4A6C60015B132 /* Sampler */ = {
 			isa = PBXGroup;
 			children = (
-				5CACC25E1D5804DA00DCF255 /* FileListTableViewController.swift */,
 				5C079CEB1CB4A6C60015B132 /* AppDelegate.swift */,
-				5C079CED1CB4A6C60015B132 /* RecordViewController.swift */,
+				5C80D4CD1D61232B00988FC9 /* ViewController */,
 				5CACC2551D57F13F00DCF255 /* Model */,
 				5C079CEF1CB4A6C60015B132 /* Main.storyboard */,
 				5C079CF21CB4A6C60015B132 /* Assets.xcassets */,
@@ -133,11 +136,22 @@
 			path = SamplerUITests;
 			sourceTree = "<group>";
 		};
+		5C80D4CD1D61232B00988FC9 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5C079CED1CB4A6C60015B132 /* RecordViewController.swift */,
+				5CACC25E1D5804DA00DCF255 /* FileListTableViewController.swift */,
+				5C80D4D01D612D9100988FC9 /* PlayerViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
 		5CACC2551D57F13F00DCF255 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				5CACC2561D57F27700DCF255 /* FileList.swift */,
 				5CACC2581D57F89800DCF255 /* SampleData.swift */,
+				5C80D4CE1D6124AC00988FC9 /* AudioState.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -276,8 +290,10 @@
 				5CACC2571D57F27700DCF255 /* FileList.swift in Sources */,
 				5C079CEE1CB4A6C60015B132 /* RecordViewController.swift in Sources */,
 				5CACC25F1D5804DA00DCF255 /* FileListTableViewController.swift in Sources */,
+				5C80D4D11D612D9100988FC9 /* PlayerViewController.swift in Sources */,
 				5C079CEC1CB4A6C60015B132 /* AppDelegate.swift in Sources */,
 				5CACC2591D57F89800DCF255 /* SampleData.swift in Sources */,
+				5C80D4CF1D6124AC00988FC9 /* AudioState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +433,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AudioKit-iOS",
+				);
 				INFOPLIST_FILE = Sampler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.danielsongh.Sampler;
@@ -428,6 +448,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AudioKit-iOS",
+				);
 				INFOPLIST_FILE = Sampler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.danielsongh.Sampler;
