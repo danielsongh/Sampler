@@ -38,6 +38,7 @@
                     <connections>
                         <outlet property="recordButton" destination="Q2V-SE-Dn9" id="Siz-3U-6FC"/>
                         <outlet property="stopButton" destination="Ard-9S-13f" id="CVf-Hr-CdO"/>
+                        <segue destination="JoT-NK-eCY" kind="show" identifier="recordingStopped" id="3q8-IW-cMk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -76,9 +77,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="JoT-NK-eCY" kind="showDetail" trigger="accessoryAction" id="GgZ-LZ-lvM"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -87,6 +85,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Files" id="xJN-mf-Wwi"/>
+                    <connections>
+                        <segue destination="JoT-NK-eCY" kind="show" identifier="fileSelected" id="G6o-Wq-8cP"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfC-Ug-aqW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -103,12 +104,32 @@
                     <view key="view" contentMode="scaleToFill" id="Ahp-PB-gie">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ua-mX-2CW">
+                                <rect key="frame" x="172" y="123" width="30" height="30"/>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="playAudioButtonTapped:" destination="JoT-NK-eCY" eventType="touchUpInside" id="pNZ-ns-c5J"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0WK-zL-jFu">
+                                <rect key="frame" x="171" y="190" width="32" height="30"/>
+                                <state key="normal" title="Stop"/>
+                                <connections>
+                                    <action selector="stopAudioButtonTapped:" destination="JoT-NK-eCY" eventType="touchUpInside" id="WCT-QO-Ih2"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="playAudioButton" destination="9Ua-mX-2CW" id="RBv-0b-s34"/>
+                        <outlet property="stopAudioButton" destination="0WK-zL-jFu" id="tUG-of-dC9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrW-By-CuQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1608" y="905"/>
+            <point key="canvasLocation" x="1767.5" y="336.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hOO-5b-urT">
@@ -173,4 +194,7 @@
         <image name="Record Tab" width="32" height="32"/>
         <image name="RecordList Tab" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="G6o-Wq-8cP"/>
+    </inferredMetricsTieBreakers>
 </document>

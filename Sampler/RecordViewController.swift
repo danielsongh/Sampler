@@ -56,13 +56,15 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
         do{
             try audioRecorder = AVAudioRecorder(URL: audioURL, settings: settings)
-            try audioRecorder.delegate = self
-            try audioRecorder.meteringEnabled = true
-            try audioRecorder.record()
-            
+    
         }catch{
             print("error setting up recorder")
         }
+        
+        audioRecorder.delegate = self
+        audioRecorder.meteringEnabled = true
+        audioRecorder.record()
+        
         
     }
     
@@ -88,13 +90,28 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
 
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
+        if(flag){
+            performSegueWithIdentifier("recordingStopped", sender: audioRecorder.url)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "recordingStopped"){
+            let playerVC = segue.destinationViewController as! PlayerViewController
+            
+            let recorderAudioURL = sender as! NSURL
+            
+            playerVC.recordedAudioURL = recorderAudioURL
+        }
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view did load!")
         updateUI(for: .Stopped)
     }
-    
     
     
     // Return path to a writable directory within the app
