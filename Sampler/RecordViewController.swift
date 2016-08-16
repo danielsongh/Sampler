@@ -14,7 +14,7 @@ import AVFoundation
 class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     var audioRecorder: AVAudioRecorder!
-    
+    let filePath = AudioURL()
     let settings = [
         AVFormatIDKey: NSNumber(unsignedInt:kAudioFormatAppleLossless),
         AVSampleRateKey: 32000.0,
@@ -51,7 +51,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         //request permission?
         
         
-        let audioURL = getAudioURL()
+        let audioURL = filePath.getAudioURL()
         print(audioURL.absoluteString)
         
         do{
@@ -103,6 +103,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             let recorderAudioURL = sender as! NSURL
             
             playerVC.recordedAudioURL = recorderAudioURL
+            print("THIS IS FROM RECORD VC")
+            print(recorderAudioURL)
         }
 
     }
@@ -114,25 +116,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     
-    // Return path to a writable directory within the app
-    func getDocumentsDirectory() -> NSString {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let documentsDirectory = paths[0]
-        
-        return documentsDirectory
-    }
-    
-    // Return the audio URL (saved as audio.caf )
-    
-    func getAudioURL() -> NSURL {
-        let audioFilename = getDocumentsDirectory().stringByAppendingPathComponent("audio.caf")
-        let audioURL = NSURL(fileURLWithPath: audioFilename)
-        
-        return audioURL
-        
-        //let audioURLString = audioURL.path!
-        //return audioURLString
-    }
+
 
     
     

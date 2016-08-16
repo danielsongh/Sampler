@@ -17,11 +17,12 @@ class PlayerViewController: UIViewController {
     var audioPlayerNode: AVAudioPlayerNode!
     var stopTimer: NSTimer!
     
+    
     @IBOutlet weak var playAudioButton: UIButton!
     @IBOutlet weak var stopAudioButton: UIButton!
     @IBAction func playAudioButtonTapped(sender: AnyObject) {
         print("play button tapped yo")
-        playAudio(rate: 1.5, pitch: 1000)
+        playAudio()
     }
     
     @IBAction func stopAudioButtonTapped(sender: AnyObject) {
@@ -31,10 +32,7 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setupAudio()
         
-        print(recordedAudioURL)
-        print("finished setting up audio")
         // Do any additional setup after loading the view.
     }
     
@@ -42,57 +40,43 @@ class PlayerViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func setupAudio(){
+       //rate rate: Float? = nil, pitch: Float? = nil
+    func playAudio(){
+        //setupAudio()
         do{
             audioFile = try AVAudioFile(forReading: recordedAudioURL)
         } catch{
             print("error setting up file")
         }
         print("Audio file ready")
-    }
-    
-    func playAudio(rate rate: Float? = nil, pitch: Float? = nil){
+        
+        let buffer = AVAudioPCMBuffer(PCMFormat: audioFile!.processingFormat, frameCapacity: AVAudioFrameCount(audioFile!.length))
+        do {
+            try audioFile!.readIntoBuffer(buffer)
+        } catch _ {
+        }
+        
         audioEngine = AVAudioEngine()
         
         audioPlayerNode = AVAudioPlayerNode()
+        audioPlayerNode.volume = 1
         audioEngine.attachNode(audioPlayerNode)
         
         let changeRatePitchNode = AVAudioUnitTimePitch()
-        if let pitch = pitch{
-            changeRatePitchNode.pitch = pitch
-        }
-        if let rate = rate{
-            changeRatePitchNode.rate = rate
-        }
-    
-       audioEngine.attachNode(changeRatePitchNode)
+        changeRatePitchNode.pitch = 1000
+        changeRatePitchNode.rate = 1.5
         
         
+        audioEngine.attachNode(changeRatePitchNode)
+        
+        
+        
+        audioEngine.connect(audioPlayerNode, to: changeRatePitchNode, format: buffer.format)
+        audioEngine.connect(changeRatePitchNode, to: audioEngine.outputNode, format: buffer.format)
+        
 
-        audioEngine.connect(audioPlayerNode, to: changeRatePitchNode, format: nil)
-        audioEngine.connect(changeRatePitchNode, to: audioEngine.outputNode, format: nil)
-    
-        connectAudioNodes(audioPlayerNode, changeRatePitchNode, audioEngine.outputNode)
-        audioPlayerNode.stop()
-       audioPlayerNode.scheduleFile(audioFile, atTime: nil) {
-            
-            var delayInSeconds: Double = 0
-            
-            if let lastRenderTime = self.audioPlayerNode.lastRenderTime, let playerTime = self.audioPlayerNode.playerTimeForNodeTime(lastRenderTime) {
-                
-                if let rate = rate {
-                    delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate) / Double(rate)
-                } else {
-                    delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate)
-                }
-            }
-            
-            // schedule a stop timer for when audio finishes playing
-            self.stopTimer = NSTimer(timeInterval: delayInSeconds, target: self, selector: "stopAudio", userInfo: nil, repeats: false)
-            NSRunLoop.mainRunLoop().addTimer(self.stopTimer!, forMode: NSDefaultRunLoopMode)
-        }
-
+        audioPlayerNode.scheduleBuffer(buffer, atTime: nil, options: AVAudioPlayerNodeBufferOptions.Loops, completionHandler: nil)
+        
         do{
             try audioEngine.start()
         } catch {
@@ -102,8 +86,7 @@ class PlayerViewController: UIViewController {
         audioPlayerNode.play()
         
     }
- 
-    
+
     
     func stopAudio(){
         audioPlayerNode.stop()
@@ -111,13 +94,7 @@ class PlayerViewController: UIViewController {
         audioEngine.reset()
     }
     
-
-    func connectAudioNodes(nodes: AVAudioNode...) {
-        for x in 0..<nodes.count-1 {
-            audioEngine.connect(nodes[x], to: nodes[x+1], format: audioFile.processingFormat)
-        }
-    }
-
+    
     
     /*
      // MARK: - Navigation
