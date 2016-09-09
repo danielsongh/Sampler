@@ -40,9 +40,8 @@ class PlayerViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-       //rate rate: Float? = nil, pitch: Float? = nil
+
     func playAudio(){
-        //setupAudio()
         do{
             audioFile = try AVAudioFile(forReading: recordedAudioURL)
         } catch{

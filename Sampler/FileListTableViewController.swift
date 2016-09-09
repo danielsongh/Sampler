@@ -10,13 +10,12 @@ import UIKit
 
 class FileListTableViewController: UITableViewController {
 
-    var recordings:[NSURL]!
+    var RecordedURLs = AudioURL()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()
-        listRecordings()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -39,15 +38,12 @@ class FileListTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        RecordedURLs.listRecordings()
+
+        return RecordedURLs.recordings!.count
     }
-    /**************
- *****
-     **
-     *
-     *          YOOO FIX SENDER SHIT. NEED URL FROM RecordVC. it's nil for now
-     *
- ***********/
+    
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("fileSelected", sender: nil)
     }
@@ -58,26 +54,10 @@ class FileListTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("FileCell")!
         
-        cell.textLabel!.text = recordings[indexPath.row].lastPathComponent
-        print("THIS IS FROM TABLEVIEW")
+        cell.textLabel!.text = RecordedURLs.recordings![indexPath.row].lastPathComponent
         return cell
     }
-    
-    func listRecordings() {
-        
-        let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-        do {
-            let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsDirectory, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
-            self.recordings = urls.filter( { (name: NSURL) -> Bool in
-                return name.lastPathComponent!.hasSuffix("caf")
-            })
-            
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        } catch {
-            print("something went wrong")
-        }
-    }
+
     
     
     /*

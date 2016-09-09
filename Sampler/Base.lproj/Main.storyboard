@@ -38,7 +38,7 @@
                     <connections>
                         <outlet property="recordButton" destination="Q2V-SE-Dn9" id="Siz-3U-6FC"/>
                         <outlet property="stopButton" destination="Ard-9S-13f" id="CVf-Hr-CdO"/>
-                        <segue destination="JoT-NK-eCY" kind="show" identifier="recordingStopped" id="3q8-IW-cMk"/>
+                        <segue destination="my7-kP-zaT" kind="show" identifier="recordingStopped" id="wwv-a7-15M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -93,7 +93,7 @@
             </objects>
             <point key="canvasLocation" x="939.5" y="904.5"/>
         </scene>
-        <!--Player View Controller-->
+        <!--FileName-->
         <scene sceneID="JZH-uZ-HBq">
             <objects>
                 <viewController id="JoT-NK-eCY" customClass="PlayerViewController" customModule="Sampler" customModuleProvider="target" sceneMemberID="viewController">
@@ -106,22 +106,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ua-mX-2CW">
-                                <rect key="frame" x="172" y="123" width="30" height="30"/>
+                                <rect key="frame" x="84" y="242" width="30" height="30"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
                                     <action selector="playAudioButtonTapped:" destination="JoT-NK-eCY" eventType="touchUpInside" id="pNZ-ns-c5J"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0WK-zL-jFu">
-                                <rect key="frame" x="171" y="190" width="32" height="30"/>
+                                <rect key="frame" x="257" y="242" width="32" height="30"/>
                                 <state key="normal" title="Stop"/>
                                 <connections>
                                     <action selector="stopAudioButtonTapped:" destination="JoT-NK-eCY" eventType="touchUpInside" id="WCT-QO-Ih2"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OQG-Vd-42e">
+                                <rect key="frame" x="128" y="338" width="118" height="31"/>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="FileName" id="PNw-wl-QAW"/>
                     <connections>
                         <outlet property="playAudioButton" destination="9Ua-mX-2CW" id="RBv-0b-s34"/>
                         <outlet property="stopAudioButton" destination="0WK-zL-jFu" id="tUG-of-dC9"/>
@@ -195,6 +199,6 @@
         <image name="RecordList Tab" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3q8-IW-cMk"/>
+        <segue reference="wwv-a7-15M"/>
     </inferredMetricsTieBreakers>
 </document>

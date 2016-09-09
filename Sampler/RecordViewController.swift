@@ -70,6 +70,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     func stopRecording(){
         audioRecorder.stop()
+        //print(audioRecorder.url)
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
     }
@@ -103,8 +104,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             let recorderAudioURL = sender as! NSURL
             
             playerVC.recordedAudioURL = recorderAudioURL
-            print("THIS IS FROM RECORD VC")
-            print(recorderAudioURL)
+            //print("this audio is from recordingVC VC")
+            //print(recorderAudioURL)
         }
 
     }
