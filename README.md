@@ -1,6 +1,6 @@
 # Sampler
 
-Currently working on this app - targeted towards music producers who are constantly looking for inspiration for their music.
+Targeted towards music producers who are constantly looking for inspiration for their music.
 
 Users will be able to:
   - Record an audio
