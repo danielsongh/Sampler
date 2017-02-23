@@ -11,6 +11,6 @@ import Foundation
 
 enum AudioState {
     
-    case Stopped, Recording, Playing
+    case stopped, recording, playing
     
 }

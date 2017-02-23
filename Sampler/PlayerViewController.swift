@@ -11,47 +11,46 @@ import AVFoundation
 
 class PlayerViewController: UIViewController {
     
-    var recordedAudioURL: NSURL!
+
     var audioFile: AVAudioFile!
     var audioEngine: AVAudioEngine!
     var audioPlayerNode: AVAudioPlayerNode!
-    var stopTimer: NSTimer!
-    
+    var stopTimer: Timer!
+   
+    var trackURLToLoad: URL!
     
     @IBOutlet weak var playAudioButton: UIButton!
     @IBOutlet weak var stopAudioButton: UIButton!
-    @IBAction func playAudioButtonTapped(sender: AnyObject) {
-        print("play button tapped yo")
+    @IBAction func playAudioButtonTapped(_ sender: AnyObject) {
         playAudio()
     }
     
-    @IBAction func stopAudioButtonTapped(sender: AnyObject) {
-        print("stop button tapped yo")
+    @IBAction func stopAudioButtonTapped(_ sender: AnyObject) {
         stopAudio()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var pitchSlider: UISlider!
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        let currentValue = Int(sender.value)
+
+        sliderValueLabel.text = "\(currentValue)"
         
-        // Do any additional setup after loading the view.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
+    @IBOutlet weak var sliderValueLabel: UILabel!
+
     func playAudio(){
+    
         do{
-            audioFile = try AVAudioFile(forReading: recordedAudioURL)
+            audioFile = try AVAudioFile(forReading: trackURLToLoad)
         } catch{
             print("error setting up file")
         }
-        print("Audio file ready")
+    
+        let buffer = AVAudioPCMBuffer(pcmFormat: audioFile!.processingFormat, frameCapacity: AVAudioFrameCount(audioFile!.length))
         
-        let buffer = AVAudioPCMBuffer(PCMFormat: audioFile!.processingFormat, frameCapacity: AVAudioFrameCount(audioFile!.length))
         do {
-            try audioFile!.readIntoBuffer(buffer)
+            try audioFile!.read(into: buffer)
         } catch _ {
         }
         
@@ -59,14 +58,16 @@ class PlayerViewController: UIViewController {
         
         audioPlayerNode = AVAudioPlayerNode()
         audioPlayerNode.volume = 1
-        audioEngine.attachNode(audioPlayerNode)
+        audioEngine.attach(audioPlayerNode)
         
         let changeRatePitchNode = AVAudioUnitTimePitch()
+        
+        
         changeRatePitchNode.pitch = 1000
         changeRatePitchNode.rate = 1.5
         
         
-        audioEngine.attachNode(changeRatePitchNode)
+        audioEngine.attach(changeRatePitchNode)
         
         
         
@@ -74,7 +75,7 @@ class PlayerViewController: UIViewController {
         audioEngine.connect(changeRatePitchNode, to: audioEngine.outputNode, format: buffer.format)
         
 
-        audioPlayerNode.scheduleBuffer(buffer, atTime: nil, options: AVAudioPlayerNodeBufferOptions.Loops, completionHandler: nil)
+        audioPlayerNode.scheduleBuffer(buffer, at: nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
         
         do{
             try audioEngine.start()
@@ -94,15 +95,5 @@ class PlayerViewController: UIViewController {
     }
     
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

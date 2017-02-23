@@ -10,38 +10,36 @@ import Foundation
 
 class AudioURL {
     
-    var recordings: [NSURL]?
-    
+    var recordings: [URL]?
+    var recordingsURLs: [URL]?
     
     // Return path to a writable directory within the app
     func getDocumentsDirectory() -> NSString {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
         
-        return documentsDirectory
+        return documentsDirectory as NSString
     }
     
     // Return the audio URL to be saved (saved as audio.caf )
     
-    func getAudioURL() -> NSURL {
-        let audioFilename = getDocumentsDirectory().stringByAppendingPathComponent("audio.caf")
-        let audioURL = NSURL(fileURLWithPath: audioFilename)
+    func getAudioURL() -> URL {
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("audio.caf")
+        let audioURL = URL(fileURLWithPath: audioFilename)
         
         return audioURL
         
-        //let audioURLString = audioURL.path!
-        //return audioURLString
     }
     
-    
-    func listRecordings() {
+    // Create a list of recordings URLs using filemanager.
+    func listRecordingsNames() {
         
-        let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         
         do {
-            let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsDirectory, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
-            self.recordings = urls.filter( { (name: NSURL) -> Bool in
-                return name.lastPathComponent!.hasSuffix("caf")
+            let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            self.recordings = urls.filter( { (name: URL) -> Bool in
+                return name.lastPathComponent.hasSuffix("caf")
             })
             
         } catch let error as NSError {
@@ -50,5 +48,22 @@ class AudioURL {
             print("something went wrong")
         }
     }
+    
+    func listRecordingsURLs() {
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        do {
+            let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            self.recordingsURLs = urls
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        } catch {
+            print("something went wrong")
+        }
+        
+
+    }
+
 
 }

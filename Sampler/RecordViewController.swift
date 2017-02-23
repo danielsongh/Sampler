@@ -15,57 +15,43 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     var audioRecorder: AVAudioRecorder!
     let filePath = AudioURL()
-    let settings = [
-        AVFormatIDKey: NSNumber(unsignedInt:kAudioFormatAppleLossless),
-        AVSampleRateKey: 32000.0,
-        AVNumberOfChannelsKey: 1 as NSNumber,
-        AVEncoderAudioQualityKey: AVAudioQuality.High.rawValue
-    ]
+    let settings = [ AVFormatIDKey: NSNumber(value: kAudioFormatAppleLossless as UInt32),
+                    AVSampleRateKey: 32000.0,
+                    AVNumberOfChannelsKey: 1 as NSNumber,
+                    AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+                    ] as [String : Any]
     
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     
-    
-    
-    @IBAction func recordButton(sender: AnyObject) {
+    @IBAction func recordButton(_ sender: AnyObject) {
         print("record button pressed")
-        updateUI(for: .Recording)
+        updateUI(for: .recording)
         startRecording()
-        
-        
     }
-    
-    
-    @IBAction func stopButton(sender: AnyObject) {
+
+    @IBAction func stopButton(_ sender: AnyObject) {
         print("stop button pressed")
-        updateUI(for: .Stopped)
+        updateUI(for: .stopped)
         stopRecording()
-        
     }
-    
     
     func startRecording(){
         let recordingSession = AVAudioSession.sharedInstance()
         try! recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
         
-        //request permission?
-        
-        
         let audioURL = filePath.getAudioURL()
         print(audioURL.absoluteString)
-        
         do{
-            try audioRecorder = AVAudioRecorder(URL: audioURL, settings: settings)
+            try audioRecorder = AVAudioRecorder(url: audioURL as URL, settings: settings)
     
         }catch{
             print("error setting up recorder")
         }
         
         audioRecorder.delegate = self
-        audioRecorder.meteringEnabled = true
+        audioRecorder.isMeteringEnabled = true
         audioRecorder.record()
-        
-        
     }
     
     func stopRecording(){
@@ -74,29 +60,29 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
     }
-    
-    
-    
+
     func updateUI(for state: AudioState){
         switch(state){
-        case .Stopped:
-            recordButton.enabled = true
-            stopButton.enabled = false
-        case .Recording:
-            recordButton.enabled = false
-            stopButton.enabled = true
+        case .stopped:
+            recordButton.isEnabled = true
+            stopButton.isEnabled = false
+        case .recording:
+            recordButton.isEnabled = false
+            stopButton.isEnabled = true
         default:
             break
         }
     }
     
 
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if(flag){
-            performSegueWithIdentifier("recordingStopped", sender: audioRecorder.url)
+            performSegue(withIdentifier: "recordingStopped", sender: audioRecorder.url)
         }
     }
     
+
+   /*
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "recordingStopped"){
             let playerVC = segue.destinationViewController as! PlayerViewController
@@ -109,31 +95,11 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
 
     }
-    
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view did load!")
-        updateUI(for: .Stopped)
+        updateUI(for: .stopped)
     }
-    
-    
-
-
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        print("viewWillAppear")
-        
-    }
-    
-    
-    
-    
-    
 }
 

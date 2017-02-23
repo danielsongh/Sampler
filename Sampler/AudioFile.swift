@@ -18,10 +18,10 @@ import Foundation
 class AuidoFile: NSObject{
     
     var name: String
-    var date: NSDate
-    var audioURL: NSURL
+    var date: Date
+    var audioURL: URL
     
-    init(name: String, date: NSDate, audioURL: NSURL){
+    init(name: String, date: Date, audioURL: URL){
         self.name = name
         self.date = date
         self.audioURL = audioURL
